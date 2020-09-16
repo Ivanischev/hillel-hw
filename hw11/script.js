@@ -7,4 +7,4 @@ function filterUpperCase(str) {
         })
 }
 
-console.log(filterUpperCase("СТоКа С ПРобЕлом"));
+console.log(filterUpperCase("СТроКа С ПРобЕлом"));
