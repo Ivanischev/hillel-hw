@@ -1,10 +1,2 @@
-function filterUpperCase(str) {
-    
-    return str
-        .split('')
-        .filter((i) => {
-            return i == i.toUpperCase() && i !== ' ' ? true : false;
-        })
-}
-
-console.log(filterUpperCase("СТроКа С ПРобЕлом"));
+let str = [].filter.call('StRinG', (item) => item.toUpperCase() === item);
+console.log(str);
