@@ -1,75 +1,35 @@
-// 1
-function Box( height, width, material){
-    this.height = height;
-    this.width = width;
-    this.material = material;
-  }
-  
-  Box.prototype.expand = function (){
-    console.log("expanded");
-  }
-  
-  Box.prototype.changeBoxAsQuard = function (size){
-    this.height = this.width = size;
-  }
-  
-  let box = new Box(100, 200, 'paper');
-  box.expand();
-  box.changeBoxAsQuard(300);
-  console.log(box);
-  
 
-// 2
-  User.prototype.work = function () {
-    console.log(this.name + " working...");
-  };
-  
-  let admin = new User("John", 20);
-  let user = new User("David", 40);
-  
-  console.log(admin, user);
+function Student(name, mark) {
+  this.name = name;
+  this.mark = mark;
+}
 
+Student.prototype.minMark = function(mark) {
+  console.log(Math.min(...this.mark));
+}
 
-  // 3
+Student.prototype.maxMark = function(mark) {
+  console.log(Math.max(...this.mark));
+}
 
-  function User(name, age) {
-    // proto = {...}
-    // this = {}
-    // this.__proto__ = proto
-    this.name = name;
-    this.age = age;
-    //return this
-  }
-  
-  User.prototype.work = function () {
-    console.log(this.name + " working...");
-  };
-  
-  let admin = new User("John", 20);
-  let user = new User("David", 40);
-  
-  console.log(admin, user);
+Student.prototype.averageMark = function(mark) {
+  let total = this.mark.reduce((sum, current) => sum + current);
+  let average = total / this.mark.length;
+
+  console.log("Средний балл " + this.name + ' - ' + average);
+}
 
 
 
+let s1 = new Student('Student 1', [10,9,8,1,10]);
+s1.minMark();
+s1.maxMark();
+s1.averageMark();
 
-  function User(name, age) {
-    // User.proto = {...}
-    // this = {}
-    // this.__proto__ = proto
-    this.name = name;
-    this.age = age;
-    //return this
-  }
-  
-  User.prototype.work = function () {
-    console.log(this.name + " working...");
-  };
-  
-  let admin = [];
-  let user = new admin.constructor("David", 40);
-  
-  let arr = new Array(1,2,3,4);
-  
-  
-  console.log(admin, user, arr);
+let s2 = new Student('Student 2', [2,2,8,5,9]);
+s2.minMark();
+s2.maxMark();
+s2.averageMark();
+
+
+
