@@ -5,18 +5,18 @@ function Student(name, mark) {
 }
 
 Student.prototype.minMark = function(mark) {
-  console.log(Math.min(...this.mark));
+  return Math.min(...this.mark);
 }
 
 Student.prototype.maxMark = function(mark) {
-  console.log(Math.max(...this.mark));
+  return Math.max(...this.mark);
 }
 
 Student.prototype.averageMark = function(mark) {
   let total = this.mark.reduce((sum, current) => sum + current);
   let average = total / this.mark.length;
 
-  console.log("Средний балл " + this.name + ' - ' + average);
+  return average;
 }
 
 
