@@ -22,9 +22,9 @@ Student.prototype.averageMark = function(mark) {
 
 
 let s1 = new Student('Student 1', [10,9,8,1,10]);
-s1.minMark();
-s1.maxMark();
-s1.averageMark();
+console.log(s1.minMark());
+console.log(s1.maxMark());
+console.log(s1.averageMark());
 
 let s2 = new Student('Student 2', [2,2,8,5,9]);
 s2.minMark();
