@@ -68,6 +68,7 @@ class Teacher extends Human {
             new Student(student)
         );
     }
+
 }
 
 
@@ -146,3 +147,42 @@ let secondTeacher = new Teacher({
 // console.log(teacher.removeStudentByName('John5'));
 // console.log(teacher);
 
+
+let describe = document.querySelector('#describe');
+
+describe.onclick = function () {
+
+    let fillOutForm = document.getElementById('get-student-info');
+    let childForms = fillOutForm.children;
+    
+    let name = childForms.name.value,
+        surname = childForms.surname.value,
+        age = childForms.age.value;
+
+    Teacher2.describeStudent({
+        name,
+        surname,
+        age: +age
+    });
+}
+
+class Teacher2 extends Human {
+    static group2 = [];
+
+    constructor({name, surname, age, group2}) {
+        super({name, surname, age});
+        this.group2 = group2;
+    }
+
+    static describeStudent(data) {
+        Teacher2.setStudent(new Teacher2(data));
+    }
+
+    static setStudent(stud) {
+        console.log(stud);
+        alert(stud);
+        Teacher2.group2.push(stud);
+        console.log(Teacher2.group2);
+        alert(Teacher2.group2);
+    }
+}
