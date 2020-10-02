@@ -24,7 +24,7 @@ class Student extends Human {
     }
 
     averageMark() {
-        return this.marks.reduce((acc, curr) => acc + curr) / this.marks.length;
+        return this.marks.reduce((sum, item) => sum + item) / this.marks.length;
     }
 
     minMark() {
@@ -53,6 +53,12 @@ class Teacher extends Human {
         .map((item) => item.name);
     }
 
+    getListOfStudentByAverageMark() {
+        let res = [];
+        this.group.sort((a, b) => b.averageMark() - a.averageMark()).forEach(a => res.push(a));
+        return res;
+    }
+
     getStudentByName(name) {
         return this.group.find((item) => item.name === name);
     }
@@ -69,7 +75,12 @@ class Teacher extends Human {
         );
     }
 
+    addStudentInGroup(studentInfo) {
+        this.group.push(new Student(studentInfo));
+    }
+
 }
+
 
 
 
@@ -134,7 +145,6 @@ let secondTeacher = new Teacher({
     age: 45
 })
 
-
 // console.log(human);
 // console.log(student)
 // console.log(secondTeacher);
@@ -148,41 +158,46 @@ let secondTeacher = new Teacher({
 // console.log(teacher);
 
 
-let describe = document.querySelector('#describe');
+window.onload = init;
 
-describe.onclick = function () {
+function init() {
+    //1
+    let addBtn = document.querySelector('#addBtn');
 
-    let fillOutForm = document.getElementById('get-student-info');
-    let childForms = fillOutForm.children;
+    addBtn.onclick = function () {
+        let addStudentForm = document.getElementById('add-student-form');
+        let childForms = addStudentForm.children;
+        // заменить children на elements
+        
+        let name = childForms.name.value,
+            surname = childForms.surname.value,
+            age = childForms.age.value,
+            marks = childForms.marks.value.split(' ').map(Number);
     
-    let name = childForms.name.value,
-        surname = childForms.surname.value,
-        age = childForms.age.value;
-
-    Teacher2.describeStudent({
-        name,
-        surname,
-        age: +age
-    });
-}
-
-class Teacher2 extends Human {
-    static group2 = [];
-
-    constructor({name, surname, age, group2}) {
-        super({name, surname, age});
-        this.group2 = group2;
+        new teacher.addStudentInGroup({
+            name,
+            surname,
+            age,
+            marks
+        });
     }
 
-    static describeStudent(data) {
-        Teacher2.setStudent(new Teacher2(data));
-    }
+    //2
+    let listOfStudents = document.querySelector('#listBtn');
 
-    static setStudent(stud) {
-        console.log(stud);
-        alert(stud);
-        Teacher2.group2.push(stud);
-        console.log(Teacher2.group2);
-        alert(Teacher2.group2);
+    listOfStudents.onclick = function() {
+        let arrList = teacher.getListOfStudentByAverageMark();
+        let str = "";
+
+        arrList.forEach(item => {
+            str += "<li>Имя: " + item.name + " Фамилия: " + item.surname + " Возраст: " + item.surname + " Средняя оценка " + item.averageMark() + "</li>"
+        });
+
+        document.getElementById('stud-list').innerHTML = str;
     }
 }
+
+console.log(teacher.group);
+
+
+
