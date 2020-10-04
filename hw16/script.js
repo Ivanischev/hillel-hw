@@ -53,12 +53,6 @@ class Teacher extends Human {
         .map((item) => item.name);
     }
 
-    getListOfStudentByAverageMark() {
-        let res = [];
-        this.group.sort((a, b) => b.averageMark() - a.averageMark()).forEach(a => res.push(a));
-        return res;
-    }
-
     getStudentByName(name) {
         return this.group.find((item) => item.name === name);
     }
@@ -75,12 +69,7 @@ class Teacher extends Human {
         );
     }
 
-    addStudentInGroup(studentInfo) {
-        this.group.push(new Student(studentInfo));
-    }
-
 }
-
 
 
 
@@ -158,46 +147,50 @@ let secondTeacher = new Teacher({
 // console.log(teacher);
 
 
+
 window.onload = init;
 
 function init() {
-    //1
-    let addBtn = document.querySelector('#addBtn');
 
-    addBtn.onclick = function () {
-        let addStudentForm = document.getElementById('add-student-form');
-        let childForms = addStudentForm.children;
-        // заменить children на elements
-        
-        let name = childForms.name.value,
-            surname = childForms.surname.value,
-            age = childForms.age.value,
-            marks = childForms.marks.value.split(' ').map(Number);
+    let teacher = new Teacher({
+        name: 'Robert',
+        surname: 'Downey',
+        age: 45,
+        group: []
+    });
+
+    let addBtn = document.querySelector('#addBtn');
+    let addStudentForm = document.getElementById('add-student-form').elements;
+    let updBtn = document.querySelector('#updBtn');
+    let studentList = document.getElementById('student-list');
+
     
-        new teacher.addStudentInGroup({
+
+
+    addBtn.addEventListener('click', (e) =>  {
+        e.preventDefault();
+        let name = addStudentForm.name.value,
+            surname = addStudentForm.surname.value,
+            age = addStudentForm.age.value,
+            marks = addStudentForm.marks.value;
+
+        teacher.group.push(new Student({
             name,
             surname,
             age,
-            marks
-        });
-    }
+            marks: marks.split(',').map( (item) => Number.parseInt(item))
+        }));
+    })
 
-    //2
-    let listOfStudents = document.querySelector('#listBtn');
 
-    listOfStudents.onclick = function() {
-        let arrList = teacher.getListOfStudentByAverageMark();
-        let str = "";
+    updBtn.addEventListener('click', (e) => {
+        e.preventDefault();
 
-        arrList.forEach(item => {
-            str += "<li>Имя: " + item.name + " Фамилия: " + item.surname + " Возраст: " + item.surname + " Средняя оценка " + item.averageMark() + "</li>"
-        });
+        teacher.group.sort( (student1, student2) => student2.averageMark() - student1.averageMark());
 
-        document.getElementById('stud-list').innerHTML = str;
-    }
+        let newStudent = teacher.group.map( (item) => '<li>' + item.name + ' - ' + item.surname + ' - ' + item.averageMark() + '</li>').join("");
+        studentList.innerHTML = newStudent;
+    })
 }
-
-console.log(teacher.group);
-
 
 

@@ -79,3 +79,14 @@ button:hover {
     margin-right: 15px;
     margin-left: 15px;
 }
+
+.result-list ol {
+    margin: 0;
+    margin-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 184px;
+    overflow-y: auto;
+    background-color: #f3f3f3;
+    border-radius: 4px;
+}
