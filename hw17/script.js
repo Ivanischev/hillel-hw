@@ -164,25 +164,30 @@ function init() {
     let updBtn = document.querySelector('#updBtn');
     let studentList = document.getElementById('student-list');
 
-    
-
-
+    //1
     addBtn.addEventListener('click', (e) =>  {
         e.preventDefault();
         let name = addStudentForm.name.value,
             surname = addStudentForm.surname.value,
             age = addStudentForm.age.value,
-            marks = addStudentForm.marks.value;
+            mark1 = addStudentForm.mark1.value,
+            mark2 = addStudentForm.mark2.value,
+            mark3 = addStudentForm.mark3.value,
+            mark4 = addStudentForm.mark4.value,
+            mark5 = addStudentForm.mark5.value,
+            marks = [mark1, mark2, mark3, mark4, mark5];
+        
+            //marks = addStudentForm.marks.value;
 
         teacher.group.push(new Student({
             name,
             surname,
             age,
-            marks: marks.split(',').map( (item) => Number.parseInt(item))
+            marks: marks.map((item) => Number.parseInt(item))
         }));
     })
 
-
+    //2
     updBtn.addEventListener('click', (e) => {
         e.preventDefault();
 
